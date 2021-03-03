@@ -1,0 +1,2 @@
+class MineItem:
+    pass
