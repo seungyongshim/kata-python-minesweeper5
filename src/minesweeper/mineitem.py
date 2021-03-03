@@ -10,4 +10,4 @@ class MineItem:
         return self._is_bomb
 
     def __str__(self) -> str:
-        pass
+        return str(self.near_bombs_count)
