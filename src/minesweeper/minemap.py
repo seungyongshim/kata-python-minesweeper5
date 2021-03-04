@@ -20,14 +20,16 @@ class MineMap:
         self._height = height
         self._items = [MineItem() for _ in range(width) for _ in range(height)]
 
-        selected_bomb_items = (
-            (self[i] for i in sample(range(0, width * height), kwargs["random_bombs"]))
-            if "random_bombs" in kwargs
-            else map(lambda xy: self._items[xy[1] * width + xy[0]], pos_bombs)
-        )
+        def select_bomb_items():
+            if "random_bombs" in kwargs:
+                count = kwargs["random_bombs"]
+                assert isinstance(count, int)
+                return (self[i] for i in sample(range(0, width * height), count))
+            else:
+                return map(lambda xy: self._items[xy[1] * width + xy[0]], pos_bombs)
 
-        for item in selected_bomb_items:
-                item.set_bomb()
+        for item in select_bomb_items():
+            item.set_bomb()
 
     def _getitem(self, xy):
         x, y = xy

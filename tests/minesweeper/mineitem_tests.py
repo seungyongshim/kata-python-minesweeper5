@@ -24,4 +24,3 @@ def test_near_bombs_count():
 def test_is_cover():
     sut = MineItem()
     assert str(sut) == "."
-

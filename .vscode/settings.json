@@ -13,7 +13,7 @@
     "python.linting.lintOnSave": true,
     "python.languageServer": "Pylance",
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.completeFunctionParens": true,
+    "python.analysis.completeFunctionParens": false,
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.diagnosticMode": "workspace",
     "python.envFile": "${workspaceFolder}/.envscode",
