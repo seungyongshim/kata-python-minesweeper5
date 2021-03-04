@@ -7,7 +7,7 @@ def test_instance():
 
     assert sut._width is 3
     assert sut._height is 4
-    assert len(list(flat_map(lambda x: x, sut._items))) is 12
+    assert sum(1 for x in flat_map(lambda x: x, sut._items)) is 12
 
 
 def test_set_bombs():
