@@ -7,10 +7,15 @@ def test_instance():
 
     assert sut._width is 3
     assert sut._height is 4
-    assert sum(1 for _ in flat_map(lambda x: x, sut._items)) is 12
+    assert sum(1 for _ in sut._items) is 12
 
 
 def test_set_bombs():
     sut = MineMap(3, 4, [(0, 0), (1, 0)])
-    assert sut._items[0][0].is_bomb is True
-    assert sut._items[0][1].is_bomb is True
+    assert sut[(0, 0)].is_bomb is True
+    assert sut[1].is_bomb is True
+
+
+def test_set_bombs_random():
+    sut = MineMap(3, 4, random_bombs=3)
+    assert sum(1 for x in sut._items if x.is_bomb is True) == 3

@@ -1,2 +1,5 @@
+from itertools import chain
+
+
 def flat_map(f, xs):
-    return (y for ys in xs for y in f(ys))
+    return map(f, chain.from_iterable(xs))
