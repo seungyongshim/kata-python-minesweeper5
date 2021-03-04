@@ -5,10 +5,21 @@ from random import sample
 
 class MineMap:
     def __getitem__(self, n):
+        def getitem(xy):
+            x, y = xy
+            return (
+                None
+                if x < 0 or y < 0 or x >= self._width or y >= self._height
+                else self._items[y * self._width + x]
+            )
+
+        def convert_index_int_to_tuple(n):
+            return reversed(divmod(n, self._width))
+
         if isinstance(n, tuple):
-            return self._getitem(n)
+            return getitem(n)
         else:
-            return self._getitem(self._convert_index_int_to_tuple(n))
+            return getitem(convert_index_int_to_tuple(n))
 
     def __init__(
         self, width: int, height: int, pos_bombs: List[Tuple[int, int]] = [], **kwargs
@@ -18,7 +29,7 @@ class MineMap:
         """
         self._width = width
         self._height = height
-        self._items = [MineItem() for _ in range(width) for _ in range(height)]
+        self._items = [MineItem((x, y)) for x in range(width) for y in range(height)]
 
         def select_bomb_items():
             if "random_bombs" in kwargs:
@@ -31,9 +42,18 @@ class MineMap:
         for item in select_bomb_items():
             item.set_bomb()
 
-    def _getitem(self, xy):
+    def near_item_generator(self, xy):
         x, y = xy
-        return self._items[y * self._width + x]
 
-    def _convert_index_int_to_tuple(self, n):
-        return reversed(divmod(n, self._width))
+        def inner():
+            yield self[(x - 1, y - 1)]
+            yield self[(x, y - 1)]
+            yield self[(x + 1, y - 1)]
+            yield self[(x - 1, y)]
+            yield self[(x + 1, y)]
+            yield self[(x - 1, y + 1)]
+            yield self[(x, y + 1)]
+            yield self[(x + 1, y + 1)]
+
+        return (x for x in inner() if x is not None)
+    
