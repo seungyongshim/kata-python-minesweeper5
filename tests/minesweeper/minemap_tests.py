@@ -1,3 +1,4 @@
+from common.functools import flat_map
 from minesweeper.minemap import MineMap
 
 
@@ -6,4 +7,4 @@ def test_instace():
 
     assert sut._width is 3
     assert sut._height is 4
-    assert len(sut._items) is 12
+    assert len(list(flat_map(lambda x: x, sut._items))) is 12

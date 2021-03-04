@@ -14,7 +14,7 @@
     "python.languageServer": "Pylance",
     "python.analysis.autoImportCompletions": true,
     "python.analysis.completeFunctionParens": true,
-    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.typeCheckingMode": "basic",
     "python.analysis.diagnosticMode": "workspace",
     "python.envFile": "${workspaceFolder}/.envscode",
     "terminal.integrated.env.windows": {
