@@ -13,21 +13,20 @@ class MineMap:
     def __init__(
         self, width: int, height: int, pos_bombs: List[Tuple[int, int]] = [], **kwargs
     ):
-        r"""
+        """
         random_bombs : int
         """
         self._width = width
         self._height = height
         self._items = [MineItem() for _ in range(width) for _ in range(height)]
 
-        if "random_bombs" in kwargs:
-            for item in (
-                self[i]
-                for i in sample(range(0, width * height), kwargs["random_bombs"])
-            ):
-                item.set_bomb()
-        else:
-            for item in map(lambda xy: self._items[xy[1] * width + xy[0]], pos_bombs):
+        selected_bomb_items = (
+            (self[i] for i in sample(range(0, width * height), kwargs["random_bombs"]))
+            if "random_bombs" in kwargs
+            else map(lambda xy: self._items[xy[1] * width + xy[0]], pos_bombs)
+        )
+
+        for item in selected_bomb_items:
                 item.set_bomb()
 
     def _getitem(self, xy):
