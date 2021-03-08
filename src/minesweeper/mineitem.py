@@ -3,15 +3,13 @@ class MineItem:
     _is_cover: bool = True
     near_bombs_count: int = 0
 
-    def __init__(self, xy=(0, 0)):
-        self._xy = xy
+    def __init__(self, near_items_generator=()):
+        self.near_items_generator = near_items_generator
 
     def set_bomb(self):
         self._is_bomb = True
-
-    @property
-    def pos(self):
-        return self._xy
+        for item in self.near_items_generator:
+            item.near_bombs_count += 1
 
     @property
     def is_bomb(self):
