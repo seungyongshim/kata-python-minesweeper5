@@ -1,6 +1,7 @@
 from typing import List, Tuple
 from minesweeper.mineitem import MineItem
 from random import sample
+from injector import inject
 
 
 class MineMap:
@@ -39,7 +40,7 @@ class MineMap:
         def select_bomb_items():
             return (
                 map(lambda xy: self[xy], pos_bombs)
-                if random_bombs is 0
+                if random_bombs == 0
                 else (self[i] for i in sample(range(0, width * height), random_bombs))
             )
 
@@ -60,3 +61,9 @@ class MineMap:
             yield self[(x + 1, y + 1)]
 
         return (x for x in inner() if x is not None)
+
+    def __str__(self):
+        return "".join(str(x) for x in self._items)
+
+    def click(self, x, y):
+        self[(x, y)].click()
