@@ -21,21 +21,15 @@ def test_set_bombs_random():
 
 
 def test_calculate_near_bombs_count():
-    sut = MineMap(3, 4, [(0, 0)])
+    sut = MineMap(3, 4, [(1, 1), (0, 1)])
+    # fmt:off
     assert [x.near_bombs_count for x in sut._items] == [
-        0,
-        1,
-        0,
-        1,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        2,        2,        1,
+        1,        1,        1,
+        2,        2,        1,
+        0,        0,        0,
     ]
+    # fmt:on
 
 
 def test_click():
