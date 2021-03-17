@@ -33,8 +33,8 @@ class MineMap:
         self._height = height
         self._items = [
             MineItem(self.near_items_generator((x, y)))
-            for x in range(width)
             for y in range(height)
+            for x in range(width)
         ]
 
         def select_bomb_items():
@@ -50,7 +50,7 @@ class MineMap:
     def near_items_generator(self, xy):
         x, y = xy
 
-        def inner():
+        def nears():
             yield self[(x - 1, y - 1)]
             yield self[(x, y - 1)]
             yield self[(x + 1, y - 1)]
@@ -60,7 +60,7 @@ class MineMap:
             yield self[(x, y + 1)]
             yield self[(x + 1, y + 1)]
 
-        return (x for x in inner() if x is not None)
+        return (x for x in nears() if x is not None)
 
     def __str__(self):
         return "".join(str(x) for x in self._items)

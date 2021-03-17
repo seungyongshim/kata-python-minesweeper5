@@ -36,3 +36,9 @@ def test_calculate_near_bombs_count():
         0,
         0,
     ]
+
+
+def test_click():
+    sut = MineMap(3, 4, [(0, 0)])
+    sut.click(2, 3)
+    assert str(sut) == ".10110000000"
